@@ -23,10 +23,12 @@ MODULE_AUTHOR("Kenneth Haroldo López López");
 static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
     struct sysinfo info;
-    si_meminfo(&info);
-    float ram = ((float)info.freeram / (float)info.totalram) * 100.0;
+    float ram;
     char buf[100];
-    gcvt(buf, "%f", ram);
+
+    si_meminfo(&info);
+    ram = ((float)info.freeram / (float)info.totalram) * 100.0;
+    gcvt(buf, 100, ram);
     seq_printf(archivo, "{\"data\":\"");
     seq_printf(archivo, "ram:");
     seq_printf(archivo, buf);
