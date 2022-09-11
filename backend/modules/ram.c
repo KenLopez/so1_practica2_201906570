@@ -11,6 +11,9 @@
 /* Header para usar la lib seq_file y manejar el archivo en /proc*/
 #include <linux/seq_file.h>
 
+/* Incluir sysinfo */
+#include <sys/sysinfo.h>
+
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Módulo de obtención de información de RAM");
 MODULE_AUTHOR("Kenneth Haroldo López López");
@@ -18,8 +21,12 @@ MODULE_AUTHOR("Kenneth Haroldo López López");
 //Funcion que se ejecutara cada vez que se lea el archivo con el comando CAT
 static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
+    struct sysinfo *sysinfo
+    int ram = (sysinfo.freeram / sysinfo.totalram) * 100;
+    char percentage[10];
     seq_printf(archivo, "{\"data\":\"");
-    seq_printf(archivo, "Kenneth López RAM");
+    seq_printf(archivo, "ram:");
+    seq_printf(archivo, sprintf(percentage, "%d", ram));
     seq_printf(archivo, "\"}");
     return 0;
 }
