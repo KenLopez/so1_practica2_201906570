@@ -52,7 +52,7 @@ func main() {
 
 	fmt.Println(output3)
 
-	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s,\"procs\":[{\"pid\":1,\"nombre\":\"systemd\",\"usuario\":0,\"estado\":1,\"ram\":11,\"children\":[170,201,327,449,453,488,501,506,510,521,525,533,546,549,722,728,730,821,828,831,893,998,1013,1165]}]}", output, output2)
+	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s,\"procs\":[{\"pid\":1,\"nombre\":\"systemd\",\"usuario\":0,\"estado\":1,\"ram\":11,\"children\":[170,201,327,449,453,488,501,506,510,521,525,533,546,549,722,728,730,821,828,831,893,998,1013,1165]},{\"pid\":7699,\"nombre\":\"cat\",\"usuario\":1001,\"estado\":0,\"ram\":0,\"children\":[]}]}", output, output2)
 
 	fmt.Println(jsonstring)
 
