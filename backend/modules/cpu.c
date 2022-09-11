@@ -26,7 +26,7 @@ struct list_head* lstProcess;
 //Funcion que se ejecutara cada vez que se lea el archivo con el comando CAT
 static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
-    int ram, childram;
+    int ram;
     char separator, childseparator;
     separator = '\0';
     childseparator = '\0';
@@ -51,27 +51,14 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
         list_for_each(lstProcess, &(cpu->children)){
             child = list_entry(lstProcess, struct task_struct, sibling);
             seq_printf(archivo, "%c", childseparator);
-            seq_printf(archivo, "{\"pid\":");
             seq_printf(archivo, "%d", child->pid);
-            seq_printf(archivo, ",\"nombre\":");
-            seq_printf(archivo, "\"%s\"", child->comm);
-            seq_printf(archivo, ",\"usuario\":");
-            seq_printf(archivo, "%d", child->real_cred->uid);
-            seq_printf(archivo, ",\"estado\":");
-            seq_printf(archivo, "%d", child->__state);
-            if (child->mm) {
-                childram = (get_mm_rss(child->mm)<<PAGE_SHIFT)/(1024*1024);
-                seq_printf(archivo, ", \"ram\":");
-                seq_printf(archivo, "%d", childram);
-            }
-            seq_printf(archivo, "}");
             childseparator = ',';
         }
         seq_printf(archivo, "]");
         separator = ',';
     }
 
-    seq_printf(archivo, "]}");
+    seq_printf(archivo, "]");
     return 0;
 }
 
