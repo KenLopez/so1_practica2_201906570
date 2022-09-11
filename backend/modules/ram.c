@@ -26,7 +26,8 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
     float ram;
 
     si_meminfo(&info);
-    ram = ((float)info.freeram / (float)info.totalram) * 100;
+    ram = (float)info.freeram / (float)info.totalram;
+    ram = ram * 100;
     seq_printf(archivo, "{\"data\":\"");
     seq_printf(archivo, "ram:");
     seq_printf(archivo, "%f", ram);
