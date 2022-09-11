@@ -68,7 +68,7 @@ func main() {
 	json.Unmarshal([]byte(arr), &x)
 
 	fmt.Printf("%+v\n", d)
-	fmt.Printf("%+v\n", arr)
+	fmt.Printf("%+v\n", x)
 
 	// time.Sleep(2 * time.Second)
 	//}
