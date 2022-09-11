@@ -27,8 +27,9 @@ struct list_head* lstProcess;
 static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
     int ram, childram;
-    char separator[] = "";
-    char childseparator[] = "";
+    char separator, childseparator;
+    separator = '\0';
+    childseparator = '\0';
     seq_printf(archivo, "\"procs\":[");
     for_each_process(cpu){
         seq_printf(archivo, "%c", separator);
@@ -46,7 +47,7 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
             seq_printf(archivo, "%d", ram);
         }
         seq_printf(archivo, ",\"children\":[");
-        childseparator = "";
+        childseparator = '\0'
         list_for_each(lstProcess, &(cpu->children)){
             child = list_entry(lstProcess, struct task_struct, sibling);
             seq_printf(archivo, "%c", childseparator);
@@ -64,10 +65,10 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
                 seq_printf(archivo, "%d", childram);
             }
             seq_printf(archivo, "}");
-            childseparator = ",";
+            childseparator = ',';
         }
         seq_printf(archivo, "]");
-        separator = ",";
+        separator = ',';
     }
 
     seq_printf(archivo, "]}");
