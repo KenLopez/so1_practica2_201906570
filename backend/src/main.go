@@ -34,7 +34,7 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	output := string(out[:len(out)-2])
+	output := string(out[:len(out)-1])
 
 	cmdram := exec.Command("sh", "-c", "cat /proc/ram_201906570")
 	out2, err2 := cmdram.CombinedOutput()
@@ -50,7 +50,7 @@ func main() {
 	}
 	output3 := string(out3[:])
 
-	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s,%s", output, output2, output3)
+	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s,%s}", output, output2, output3)
 
 	fmt.Println(jsonstring)
 
