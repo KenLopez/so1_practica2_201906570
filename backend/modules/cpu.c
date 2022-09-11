@@ -12,14 +12,14 @@
 #include <linux/seq_file.h>
 
 MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Módulo de obtención de información de RAM");
+MODULE_DESCRIPTION("Módulo de obtención de información de CPU");
 MODULE_AUTHOR("Kenneth Haroldo López López");
 
 //Funcion que se ejecutara cada vez que se lea el archivo con el comando CAT
 static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
     seq_printf(archivo, "{\"data\":\"");
-    seq_printf(archivo, "Kenneth López RAM");
+    seq_printf(archivo, "Kenneth López CPU");
     seq_printf(archivo, "\"}");
     return 0;
 }
@@ -40,16 +40,16 @@ static struct proc_ops operaciones =
 //Funcion a ejecuta al insertar el modulo en el kernel con insmod
 static int _insert(void)
 {
-    proc_create("ram_201906570", 0, NULL, &operaciones);
-    printk("201906570\n");
+    proc_create("cpu_201906570", 0, NULL, &operaciones);
+    printk("Kenneth Haroldo López López\n");
     return 0;
 }
 
 //Funcion a ejecuta al remover el modulo del kernel con rmmod
 static void _remove(void)
 {
-    remove_proc_entry("ram_201906570", NULL);
-    printk("Laboratorio Sistemas Operativos 1\n");
+    remove_proc_entry("cpu_201906570", NULL);
+    printk("Segundo Semestre 2022\n");
 }
 
 module_init(_insert);
