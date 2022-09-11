@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <linux/module.h>
 // para usar KERN_INFO
 #include <linux/kernel.h>
