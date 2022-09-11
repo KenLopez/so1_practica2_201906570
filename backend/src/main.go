@@ -56,23 +56,18 @@ func main() {
 
 	fmt.Println(output[2])
 
-	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s}", output[0], output[1])
+	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s,\"procs\":%s}", output[0], output[1], output[2])
 
 	fmt.Println(jsonstring)
 
 	// arr := "[{\"pid\":1,\"nombre\":\"systemd\",\"usuario\":0,\"estado\":1,\"ram\":11,\"children\":[170,201,327,449,453,488,501,506,510,521,525,533,546,549,722,728,730,821,828,831,893,998,1013,1165]},{\"pid\":2,\"nombre\":\"kthreadd\",\"usuario\":0,\"estado\":1,\"children\":[3,4,5,7,9,10,11,12,13,14,15,16,18,19,20,21,22,24,25,26,27,29,30,31,32,33,34,80,81,82,83,84,85,86,87,88,90,92,93,95,96,97,98,99,100,101,102,104,105,115,118,119,126,127,128,131,224,323,324,325,326,843,1806,3068,5591,6466,7701,8550]},{\"pid\":3,\"nombre\":\"rcu_gp\",\"usuario\":0,\"estado\":1026,\"children\":[]},{\"pid\":4,\"nombre\":\"rcu_par_gp\",\"usuario\":0,\"estado\":1026,\"children\":[]}]"
-	arr := output[2]
-
 	var d Data
-	var x []Proc
-	json.Unmarshal([]byte(jsonstring), &d)
-	e := json.Unmarshal([]byte(arr), &x)
+	e := json.Unmarshal([]byte(jsonstring), &d)
 	if e != nil {
 		fmt.Println(e)
 	}
 
 	fmt.Printf("%+v\n", d)
-	fmt.Printf("%+v\n", x)
 
 	// time.Sleep(2 * time.Second)
 	//}
