@@ -12,7 +12,7 @@
 #include <linux/seq_file.h>
 
 /* Incluir alternativa a sysinfo */
-#include <linux/mm.h>
+#include <linux/hugetlb.h>
 
 
 MODULE_LICENSE("GPL");
@@ -27,10 +27,9 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
 
     si_meminfo(&info);
     ram = info.freeram / info.totalram * 100;
-    seq_printf(archivo, "{\"data\":\"");
-    seq_printf(archivo, "ram:");
+    seq_printf(archivo, "{\"ram\":");
     seq_printf(archivo, "%d", ram);
-    seq_printf(archivo, "\"}");
+    seq_printf(archivo, "}");
     return 0;
 }
 
