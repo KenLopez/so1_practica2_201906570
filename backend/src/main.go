@@ -17,7 +17,7 @@ type Proc struct {
 	Usuario  int    `json:"usuario",omitempty`
 	Estado   int    `json:"estado",omitempty`
 	Ram      int    `json:"ram",omitempty`
-	Children []Proc `json:"children",omitempty`
+	Children []int  `json:"children",omitempty`
 }
 
 type Data struct {
@@ -52,7 +52,7 @@ func main() {
 
 	fmt.Println(output3)
 
-	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s,\"procs\":[]}", output, output2)
+	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s,\"procs\":[3,4,5,]}", output, output2)
 
 	fmt.Println(jsonstring)
 
