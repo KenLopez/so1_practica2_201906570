@@ -79,6 +79,7 @@ func main() {
 	}
 
 	query := `INSERT INTO Log(fecha, cpu, ram) VALUES (NOW(),?,?);`
+	fmt.Printf("%s\n", query)
 	result, er := conn.Exec(query, d.Cpu, float64(d.Ram.Freeram)*100/float64(d.Ram.Totalram))
 	if er != nil {
 		fmt.Println(er)
