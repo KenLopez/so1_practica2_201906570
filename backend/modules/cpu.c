@@ -27,8 +27,8 @@ struct list_head* lstProcess;
 static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
     int ram, childram;
-    char[] separator = "";
-    char[] childseparator = "";
+    char separator[] = "";
+    char childseparator[] = "";
     seq_printf(archivo, "\"procs\":[");
     for_each_process(cpu){
         seq_printf(archivo, "%c", separator);
