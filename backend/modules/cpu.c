@@ -47,7 +47,7 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
             seq_printf(archivo, "%d", ram);
         }
         seq_printf(archivo, ",\"children\":[");
-        childseparator = '\0'
+        childseparator = '\0';
         list_for_each(lstProcess, &(cpu->children)){
             child = list_entry(lstProcess, struct task_struct, sibling);
             seq_printf(archivo, "%c", childseparator);
