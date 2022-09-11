@@ -27,32 +27,34 @@ type Data struct {
 }
 
 func main() {
+	var out [3][]byte
+	var err [3]error
+	var output [3]string
+
 	// for {
 	cmd := exec.Command("sh", "-c", "cat /proc/stat | grep cpu | tail -1 | awk '{print ($5*100)/($2+$3+$4+$5+$6+$7+$8+$9+$10)}' | awk '{print 100-$1}'")
-	out, err := cmd.CombinedOutput()
+	out[0], err[0] = cmd.CombinedOutput()
 
-	if err != nil {
-		fmt.Println(err)
+	if err[0] != nil {
+		fmt.Println(err[0])
 	}
-	output := string(out[:len(out)-1])
+	output[0] = string(out[0][:len(out[0])-1])
 
 	cmdram := exec.Command("sh", "-c", "cat /proc/ram_201906570")
-	out2, err2 := cmdram.CombinedOutput()
-	if err2 != nil {
-		fmt.Println(err2)
+	out[1], err[1] = cmdram.CombinedOutput()
+	if err[1] != nil {
+		fmt.Println(err[1])
 	}
-	output2 := string(out2[:])
+	output[1] = string(out[1][:])
 
 	cmdcpu := exec.Command("sh", "-c", "cat /proc/cpu_201906570")
-	out3, err3 := cmdcpu.CombinedOutput()
-	if err3 != nil {
-		fmt.Println(err3)
+	out[2], err[2] = cmdcpu.CombinedOutput()
+	if err[2] != nil {
+		fmt.Println(err[2])
 	}
-	output3 := string(out3[:])
+	output[2] = string(out[2][:])
 
-	fmt.Println(output3)
-
-	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s,\"procs\":[{\"pid\":1,\"nombre\":\"systemd\",\"usuario\":0,\"estado\":1,\"ram\":11,\"children\":[170,201,327,449,453,488,501,506,510,521,525,533,546,549,722,728,730,821,828,831,893,998,1013,1165]},{\"pid\":7699,\"nombre\":\"cat\",\"usuario\":1001,\"estado\":0,\"ram\":0,\"children\":[]}]}", output, output2)
+	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s,%s}", output[0], output[1], output[2])
 
 	fmt.Println(jsonstring)
 
