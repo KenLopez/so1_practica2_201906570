@@ -34,7 +34,7 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	output := string(out[:])
+	output := string(out[:len(out)-2])
 
 	cmdram := exec.Command("sh", "-c", "cat /proc/ram_201906570")
 	out2, err2 := cmdram.CombinedOutput()
