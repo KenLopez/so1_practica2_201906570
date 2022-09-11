@@ -56,14 +56,19 @@ func main() {
 
 	fmt.Println(output[2])
 
-	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s,\"procs\":%s}", output[0], output[1], output[2])
+	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s}", output[0], output[1])
 
 	fmt.Println(jsonstring)
 
+	arr := output[2]
+
 	var d Data
+	var x []Proc
 	json.Unmarshal([]byte(jsonstring), &d)
+	json.Unmarshal([]byte(arr), &x)
 
 	fmt.Printf("%+v\n", d)
+	fmt.Printf("%+v\n", arr)
 
 	// time.Sleep(2 * time.Second)
 	//}
