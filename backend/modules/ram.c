@@ -14,6 +14,8 @@
 /* Incluir alternativa a sysinfo */
 #include <linux/mm.h>
 
+#include <stdio.h>
+
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Módulo de obtención de información de RAM");
@@ -24,11 +26,12 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
     struct sysinfo info;
     si_meminfo(&info);
-    float ram = (float(info.freeram) / float(info.totalram)) * 100;
+    float ram = ((float)info.freeram / (float)info.totalram) * 100;
     char buf[100];
+    fprintf(buf, "%f", amount);
     seq_printf(archivo, "{\"data\":\"");
     seq_printf(archivo, "ram:");
-    seq_printf(archivo, fprintf(buf, "%f", amount));
+    seq_printf(archivo, buf);
     seq_printf(archivo, "\"}");
     return 0;
 }
