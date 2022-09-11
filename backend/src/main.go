@@ -23,7 +23,7 @@ type Proc struct {
 type Data struct {
 	Cpu   float32 `json:"cpu",omitempty`
 	Ram   Ram     `json:"ram",omitempty`
-	Procs []int   `json:"procs",omitempty`
+	Procs []Proc  `json:"procs",omitempty`
 }
 
 func main() {
