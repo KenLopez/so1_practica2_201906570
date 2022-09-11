@@ -11,16 +11,49 @@
 /* Header para usar la lib seq_file y manejar el archivo en /proc*/
 #include <linux/seq_file.h>
 
+#include <linux/sched.h>
+
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Módulo de obtención de información de CPU");
 MODULE_AUTHOR("Kenneth Haroldo López López");
 
+struct task_struct* cpu;
+
 //Funcion que se ejecutara cada vez que se lea el archivo con el comando CAT
 static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
-    seq_printf(archivo, "{\"data\":\"");
-    seq_printf(archivo, "Kenneth López CPU");
-    seq_printf(archivo, "\"}");
+    seq_printf(archivo, "\"procs\":[");
+    for_each_process(cpu){
+        seq_printf(archivo, "{\"pid\":");
+        seq_printf(archivo, "%d", cpu->pid);
+        seq_printf(archivo, ",\"nombre\":");
+        seq_printf(archivo, "%s", cpu->comm);
+        seq_printf(archivo, ",\"usuario\":");
+        seq_printf(archivo, "%d", cpu->uid_t);
+        seq_printf(archivo, ",\"estado\":");
+        seq_printf(archivo, "%d", cpu->state);
+        seq_printf(archivo, ",\"ram\":");
+        seq_printf(archivo, "%d", cpu->usage);
+        seq_printf(archivo, ",\"children\":[");
+        list_for_each(lstProcess, &(cpu->children)){
+            child = list_entry(lstProcess, struct task_struct, sibling);
+            seq_printf(archivo, "{\"pid\":");
+            seq_printf(archivo, "%d", child->pid);
+            seq_printf(archivo, ",\"nombre\":");
+            seq_printf(archivo, "%s", child->comm);
+            seq_printf(archivo, ",\"usuario\":")
+            seq_printf(archivo, "%d", child->uid_t);
+            seq_printf(archivo, ",\"estado\":");
+            seq_printf(archivo, "%d", child->state);
+            seq_printf(archivo, ",\"ram\":");
+            seq_printf(archivo, "%d", child->usage);
+            seq_printf(archivo, "},");
+        }
+        seq_printf(archivo, "]");
+        seq_printf(archivo, "},");
+    }
+
+    seq_printf(archivo, "]}");
     return 0;
 }
 

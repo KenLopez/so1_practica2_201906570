@@ -26,11 +26,10 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
     int ram;
 
     si_meminfo(&info);
-    ram = (info.totalram - info.freeram) * 100 / info.totalram;
-    seq_printf(archivo, "{\"ram\":");
-    seq_printf(archivo, "%d", ram);
-    seq_printf(archivo, ",\"procs\":");
-    seq_printf(archivo, "%d", info.procs);
+    seq_printf(archivo, "{\"totalram\":");
+    seq_printf(archivo, "%d", info.totalram);
+    seq_printf(archivo, ",\"freeram\":");
+    seq_printf(archivo, "%d", info.freeram);
     seq_printf(archivo, "}");
     return 0;
 }
