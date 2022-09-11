@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	cmd := exec.Command("top", "-bn2 | grep '%Cpu' | tail -1 | grep", "-P '(....|...) id,'|awk '{100-$8}")
+	cmd := exec.Command("echo", "cat", "/proc/stat", "|", "grep", "cpu", "|", "tail", "-1", "|", "awk '{($5*100)/($2+$3+$4+$5+$6+$7+$8+$9+$10)}'", "|", "awk '{100-$1}'")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Println(err)
