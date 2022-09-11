@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <linux/module.h>
 // para usar KERN_INFO
 #include <linux/kernel.h>
@@ -13,8 +14,6 @@
 
 /* Incluir alternativa a sysinfo */
 #include <linux/mm.h>
-
-#include <stdio.h>
 
 
 MODULE_LICENSE("GPL");
