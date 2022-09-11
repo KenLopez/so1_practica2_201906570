@@ -13,6 +13,8 @@
 
 #include <linux/sched.h>
 
+#include/linux/mm.h
+
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Módulo de obtención de información de CPU");
 MODULE_AUTHOR("Kenneth Haroldo López López");
@@ -32,7 +34,7 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
         seq_printf(archivo, ",\"nombre\":");
         seq_printf(archivo, "%s", cpu->comm);
         seq_printf(archivo, ",\"usuario\":");
-        seq_printf(file, "%d", cpu->real_cred->uid);
+        seq_printf(archivo, "%d", cpu->real_cred->uid);
         seq_printf(archivo, ",\"estado\":");
         seq_printf(archivo, "%d", cpu->__state);
         if (cpu->mm) {
@@ -47,8 +49,8 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
             seq_printf(archivo, "%d", child->pid);
             seq_printf(archivo, ",\"nombre\":");
             seq_printf(archivo, "%s", child->comm);
-            seq_printf(archivo, ",\"usuario\":")
-            seq_printf(file, "%d", child->real_cred->uid);
+            seq_printf(archivo, ",\"usuario\":");
+            seq_printf(archivo, "%d", child->real_cred->uid);
             seq_printf(archivo, ",\"estado\":");
             seq_printf(archivo, "%d", child->__state);
             if (child->mm) {
