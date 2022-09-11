@@ -41,7 +41,7 @@ static struct proc_ops operaciones =
 static int _insert(void)
 {
     proc_create("ram_201906570", 0, NULL, &operaciones);
-    printk("201906570\n");
+    printk(KERN_INFO "201906570\n");
     return 0;
 }
 
@@ -49,7 +49,7 @@ static int _insert(void)
 static void _remove(void)
 {
     remove_proc_entry("ram_201906570", NULL);
-    printk("Laboratorio Sistemas Operativos 1\n");
+    printk(KERN_INFO "Laboratorio Sistemas Operativos 1\n");
 }
 
 module_init(_insert);
