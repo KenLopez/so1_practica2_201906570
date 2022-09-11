@@ -14,6 +14,7 @@
 /* Incluir alternativa a sysinfo */
 #include <linux/mm.h>
 
+
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Módulo de obtención de información de RAM");
 MODULE_AUTHOR("Kenneth Haroldo López López");
@@ -24,10 +25,9 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
     struct sysinfo info;
     si_meminfo(&info);
     int ram = (info.freeram / info.totalram) * 100;
-    char* percentage;
     seq_printf(archivo, "{\"data\":\"");
     seq_printf(archivo, "ram:");
-    seq_printf(archivo, sprintf(percentage, "%d", ram));
+    seq_printf(archivo, ram);
     seq_printf(archivo, "\"}");
     return 0;
 }
