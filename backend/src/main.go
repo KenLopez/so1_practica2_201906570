@@ -78,28 +78,13 @@ func main() {
 		fmt.Println(e)
 	}
 
-	// query := `INSERT INTO Log(fecha, cpu, ram) VALUES (NOW(),?,?);`
-	// result, er := conn.Exec(query, d.Cpu, float64(d.Ram.Freeram)*100/float64(d.Ram.Totalram))
-	// if er != nil {
-	// 	fmt.Println(er)
-	// }
-
-	var listUsr []Proc
-	query := "SELECT * FROM Log;"
-	result, er := conn.Query(query)
+	query := `INSERT INTO Log(fecha, cpu, ram) VALUES (NOW(),?,?);`
+	result, er := conn.Exec(query, d.Cpu, float64(d.Ram.Freeram)*100/float64(d.Ram.Totalram))
 	if er != nil {
 		fmt.Println(er)
 	}
-	for result.Next() {
-		var usr Proc
-		er = result.Scan(&usr.Estado, &usr.Nombre)
-		if er != nil {
-			fmt.Println(er)
-		}
-		listUsr = append(listUsr, usr)
-	}
 
-	fmt.Printf("%+v\n", listUsr)
+	fmt.Printf("%+v\n", result)
 
 	// time.Sleep(2 * time.Second)
 	// }
