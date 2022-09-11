@@ -36,7 +36,7 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
         seq_printf(archivo, "{\"pid\":");
         seq_printf(archivo, "%d", cpu->pid);
         seq_printf(archivo, ",\"nombre\":");
-        seq_printf(archivo, "%s", cpu->comm);
+        seq_printf(archivo, "\"%s\"", cpu->comm);
         seq_printf(archivo, ",\"usuario\":");
         seq_printf(archivo, "%d", cpu->real_cred->uid);
         seq_printf(archivo, ",\"estado\":");
@@ -54,7 +54,7 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
             seq_printf(archivo, "{\"pid\":");
             seq_printf(archivo, "%d", child->pid);
             seq_printf(archivo, ",\"nombre\":");
-            seq_printf(archivo, "%s", child->comm);
+            seq_printf(archivo, "\"%s\"", child->comm);
             seq_printf(archivo, ",\"usuario\":");
             seq_printf(archivo, "%d", child->real_cred->uid);
             seq_printf(archivo, ",\"estado\":");
