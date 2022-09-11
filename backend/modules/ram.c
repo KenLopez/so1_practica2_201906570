@@ -21,8 +21,8 @@ MODULE_AUTHOR("Kenneth Haroldo López López");
 //Funcion que se ejecutara cada vez que se lea el archivo con el comando CAT
 static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
-    struct sysinfo *sysinfo
-    int ram = (sysinfo.freeram / sysinfo.totalram) * 100;
+    struct sysinfo info;
+    int ram = (info.freeram / info.totalram) * 100;
     char percentage[10];
     seq_printf(archivo, "{\"data\":\"");
     seq_printf(archivo, "ram:");
