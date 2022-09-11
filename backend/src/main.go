@@ -54,7 +54,7 @@ func main() {
 	fmt.Println(output2)
 	fmt.Println(output3)
 
-	jsonstring := "{\"cpu\":3.1514,\"ram\":{\"totalram\": 0,\"freeram\":0},\"procs\":[]}"
+	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":{\"totalram\": 0,\"freeram\":0},\"procs\":[]}", output)
 
 	fmt.Println(jsonstring)
 
