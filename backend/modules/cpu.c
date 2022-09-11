@@ -30,7 +30,7 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
     char separator, childseparator;
     separator = '\0';
     childseparator = '\0';
-    seq_printf(archivo, "\"procs\":[");
+    seq_printf(archivo, "[");
     for_each_process(cpu){
         seq_printf(archivo, "%c", separator);
         seq_printf(archivo, "{\"pid\":");
