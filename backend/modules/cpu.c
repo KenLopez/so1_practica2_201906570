@@ -39,7 +39,7 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
         seq_printf(archivo, "%d", cpu->__state);
         if (cpu->mm) {
             ram = (get_mm_rss(cpu->mm)<<PAGE_SHIFT)/(1024*1024);
-            seq_printf(archivo, ", \"ram\": ");
+            seq_printf(archivo, ", \"ram\":");
             seq_printf(archivo, "%d", ram);
         }
         seq_printf(archivo, ",\"children\":[");
@@ -55,13 +55,12 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
             seq_printf(archivo, "%d", child->__state);
             if (child->mm) {
                 childram = (get_mm_rss(child->mm)<<PAGE_SHIFT)/(1024*1024);
-                seq_printf(archivo, ", \"ram\": ");
+                seq_printf(archivo, ", \"ram\":");
                 seq_printf(archivo, "%d", childram);
             }
             seq_printf(archivo, "},");
         }
         seq_printf(archivo, "]");
-        seq_printf(archivo, "},");
     }
 
     seq_printf(archivo, "]}");
