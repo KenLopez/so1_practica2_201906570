@@ -11,8 +11,8 @@
 /* Header para usar la lib seq_file y manejar el archivo en /proc*/
 #include <linux/seq_file.h>
 
-/* Incluir sysinfo */
-#include <sys/sysinfo.h>
+/* Incluir alternativa a sysinfo */
+#include <linux/mm.h>
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Módulo de obtención de información de RAM");
