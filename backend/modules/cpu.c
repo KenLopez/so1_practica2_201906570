@@ -18,10 +18,13 @@ MODULE_DESCRIPTION("Módulo de obtención de información de CPU");
 MODULE_AUTHOR("Kenneth Haroldo López López");
 
 struct task_struct* cpu;
+struct task_struct* child;
+struct list_head* lstProcess;
 
 //Funcion que se ejecutara cada vez que se lea el archivo con el comando CAT
 static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
+    int ram, childram;
     seq_printf(archivo, "\"procs\":[");
     for_each_process(cpu){
         seq_printf(archivo, "{\"pid\":");
@@ -29,11 +32,14 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
         seq_printf(archivo, ",\"nombre\":");
         seq_printf(archivo, "%s", cpu->comm);
         seq_printf(archivo, ",\"usuario\":");
-        seq_printf(archivo, "%d", cpu->uid_t);
+        seq_printf(file, "%d", cpu->real_cred->uid);
         seq_printf(archivo, ",\"estado\":");
-        seq_printf(archivo, "%d", cpu->state);
-        seq_printf(archivo, ",\"ram\":");
-        seq_printf(archivo, "%d", cpu->usage);
+        seq_printf(archivo, "%d", cpu->__state);
+        if (cpu->mm) {
+            ram = (get_mm_rss(cpu->mm)<<PAGE_SHIFT)/(1024*1024);
+            seq_printf(archivo, ", \"ram\": ");
+            seq_printf(archivo, "%d", ram);
+        }
         seq_printf(archivo, ",\"children\":[");
         list_for_each(lstProcess, &(cpu->children)){
             child = list_entry(lstProcess, struct task_struct, sibling);
@@ -42,11 +48,14 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
             seq_printf(archivo, ",\"nombre\":");
             seq_printf(archivo, "%s", child->comm);
             seq_printf(archivo, ",\"usuario\":")
-            seq_printf(archivo, "%d", child->uid_t);
+            seq_printf(file, "%d", child->real_cred->uid);
             seq_printf(archivo, ",\"estado\":");
-            seq_printf(archivo, "%d", child->state);
-            seq_printf(archivo, ",\"ram\":");
-            seq_printf(archivo, "%d", child->usage);
+            seq_printf(archivo, "%d", child->__state);
+            if (child->mm) {
+                childram = (get_mm_rss(child->mm)<<PAGE_SHIFT)/(1024*1024);
+                seq_printf(archivo, ", \"ram\": ");
+                seq_printf(archivo, "%d", childram);
+            }
             seq_printf(archivo, "},");
         }
         seq_printf(archivo, "]");
