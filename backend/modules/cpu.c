@@ -54,7 +54,7 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
             seq_printf(archivo, "%d", child->pid);
             childseparator = ',';
         }
-        seq_printf(archivo, "]");
+        seq_printf(archivo, "]}");
         separator = ',';
     }
 
