@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os/exec"
-	"time"
 )
 
 type Ram struct {
@@ -28,36 +27,38 @@ type Data struct {
 }
 
 func main() {
-	for {
-		cmd := exec.Command("sh", "-c", "cat /proc/stat | grep cpu | tail -1 | awk '{print ($5*100)/($2+$3+$4+$5+$6+$7+$8+$9+$10)}' | awk '{print 100-$1}'")
-		out, err := cmd.CombinedOutput()
+	// for {
+	cmd := exec.Command("sh", "-c", "cat /proc/stat | grep cpu | tail -1 | awk '{print ($5*100)/($2+$3+$4+$5+$6+$7+$8+$9+$10)}' | awk '{print 100-$1}'")
+	out, err := cmd.CombinedOutput()
 
-		if err != nil {
-			fmt.Println(err)
-		}
-		output := string(out[:])
-
-		cmdram := exec.Command("sh", "-c", "cat /proc/ram_201906570")
-		out2, err2 := cmdram.CombinedOutput()
-		if err2 != nil {
-			fmt.Println(err2)
-		}
-		output2 := string(out2[:])
-
-		cmdcpu := exec.Command("sh", "-c", "cat /proc/cpu_201906570")
-		out3, err3 := cmdcpu.CombinedOutput()
-		if err3 != nil {
-			fmt.Println(err3)
-		}
-		output3 := string(out3[:])
-
-		jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s,%s", output, output2, output3)
-
-		var d Data
-		json.Unmarshal([]byte(jsonstring), &d)
-
-		fmt.Printf("%+v\n", d)
-
-		time.Sleep(2 * time.Second)
+	if err != nil {
+		fmt.Println(err)
 	}
+	output := string(out[:])
+
+	cmdram := exec.Command("sh", "-c", "cat /proc/ram_201906570")
+	out2, err2 := cmdram.CombinedOutput()
+	if err2 != nil {
+		fmt.Println(err2)
+	}
+	output2 := string(out2[:])
+
+	cmdcpu := exec.Command("sh", "-c", "cat /proc/cpu_201906570")
+	out3, err3 := cmdcpu.CombinedOutput()
+	if err3 != nil {
+		fmt.Println(err3)
+	}
+	output3 := string(out3[:])
+
+	jsonstring := fmt.Sprintf("{\"cpu\":%s,\"ram\":%s,%s", output, output2, output3)
+
+	fmt.Println(jsonstring)
+
+	var d Data
+	json.Unmarshal([]byte(jsonstring), &d)
+
+	fmt.Printf("%+v\n", d)
+
+	// time.Sleep(2 * time.Second)
+	//}
 }
