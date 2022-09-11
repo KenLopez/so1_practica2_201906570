@@ -22,8 +22,9 @@ MODULE_AUTHOR("Kenneth Haroldo López López");
 static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
     struct sysinfo info;
+    si_meminfo(&info);
     int ram = (info.freeram / info.totalram) * 100;
-    char percentage[10];
+    char* percentage;
     seq_printf(archivo, "{\"data\":\"");
     seq_printf(archivo, "ram:");
     seq_printf(archivo, sprintf(percentage, "%d", ram));
