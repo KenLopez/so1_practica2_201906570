@@ -125,7 +125,7 @@ func main() {
 
 		for i := 0; i < len(parents); i++ {
 			pro := *parents[i].Value
-			query := `INSERT INTO PROCESO(nombre, usuario, estado, ram, padre, log) VALUES (?,?,?,?,?,?);`
+			query := `INSERT INTO PROCESO(nombre, usuario, estado, ram, padre, log) VALUES (?,?,?,?,NULL,?);`
 			state := ""
 			switch pro.Estado {
 			case 0:
@@ -140,7 +140,7 @@ func main() {
 			default:
 				state = "OTRO"
 			}
-			res, er2 := conn.Exec(query, pro.Nombre, pro.Usuario, state, float64(pro.Ram)/float64(d.Ram.Totalram), nil, logId)
+			res, er2 := conn.Exec(query, pro.Nombre, pro.Usuario, state, float64(pro.Ram)/float64(d.Ram.Totalram), logId)
 			if er2 != nil {
 				fmt.Println(er2)
 			}
