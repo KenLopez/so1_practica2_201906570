@@ -146,7 +146,7 @@ func main() {
 			}
 			parentId, _ := res.LastInsertId()
 			for j := 0; j < len(parents[i].Children); j++ {
-				query2 := `INSERT INTO PROCESO(nombre, usuario, estado, ram, log) VALUES (?,?,?,?,?);`
+				query2 := `INSERT INTO PROCESO(nombre, usuario, estado, ram, padre, log) VALUES (?,?,?,?,?,?);`
 				ch := *parents[i].Children[j]
 				chState := ""
 				switch ch.Estado {
