@@ -115,7 +115,7 @@ func main() {
 
 		for i := 0; i < len(parents); i++ {
 			pro := *parents[i].Value
-			query := `INSERT INTO PROCESO(nombre, usuario, estado, ram, log) VALUES (?,?,?,?,?);`
+			query := `INSERT INTO PROCESO(pid, nombre, usuario, estado, ram, log) VALUES (?,?,?,?,?,?);`
 			state := ""
 			switch pro.Estado {
 			case 0:
@@ -131,13 +131,13 @@ func main() {
 			default:
 				state = "SUSPENDIDO"
 			}
-			res, er2 := conn.Exec(query, pro.Nombre, pro.Usuario, state, float64(pro.Ram)/float64(d.Ram.Totalram), logId)
+			res, er2 := conn.Exec(query, pro.Pid, pro.Nombre, pro.Usuario, state, float64(pro.Ram)/float64(d.Ram.Totalram), logId)
 			if er2 != nil {
 				fmt.Println(er2)
 			}
 			parentId, _ := res.LastInsertId()
 			for j := 0; j < len(parents[i].Children); j++ {
-				query2 := `INSERT INTO PROCESO(nombre, usuario, estado, ram, padre, log) VALUES (?,?,?,?,?,?);`
+				query2 := `INSERT INTO PROCESO(pid, nombre, usuario, estado, ram, padre, log) VALUES (?,?,?,?,?,?,?);`
 				ch := *parents[i].Children[j]
 				chState := ""
 				switch ch.Estado {
@@ -154,7 +154,7 @@ func main() {
 				default:
 					chState = "SUSPENDIDO"
 				}
-				_, er3 := conn.Exec(query2, ch.Nombre, ch.Usuario, chState, float64(ch.Ram)/float64(d.Ram.Totalram), parentId, logId)
+				_, er3 := conn.Exec(query2, ch.Pid, ch.Nombre, ch.Usuario, chState, float64(ch.Ram)/float64(d.Ram.Totalram), parentId, logId)
 				if er3 != nil {
 					fmt.Println(er3)
 				}
