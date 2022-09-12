@@ -9,8 +9,9 @@ router.get('/', (req, res) => {
             if(err){ throw err }
             if(result.length>1){
                 res.send(result[1])
+            }else{
+                res.send(result[0])
             }
-            res.send(result[0])
         }
     )
 })
