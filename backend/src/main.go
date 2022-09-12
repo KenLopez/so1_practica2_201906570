@@ -129,7 +129,7 @@ func main() {
 			case 32:
 				state = "ZOMBIE"
 			default:
-				state = "ZOMBIE"
+				state = "SUSPENDIDO"
 			}
 			res, er2 := conn.Exec(query, pro.Nombre, pro.Usuario, state, float64(pro.Ram)/float64(d.Ram.Totalram), logId)
 			if er2 != nil {
@@ -152,7 +152,7 @@ func main() {
 				case 8:
 					chState = "ZOMBIE"
 				default:
-					chState = "OTRO"
+					chState = "SUSPENDIDO"
 				}
 				_, er3 := conn.Exec(query2, ch.Nombre, ch.Usuario, chState, float64(ch.Ram)/float64(d.Ram.Totalram), parentId, logId)
 				if er3 != nil {
