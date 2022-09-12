@@ -45,9 +45,7 @@ router.get('/process', async (req, res) => {
                         zmb++;
                         break;
                 }
-                if(proc.padre == null){
-                    processes.push({...proc, parentId: proc.padre})
-                }
+                processes.push({...proc, parentId: proc.padre})
             }
             res.send({
                 ejecucion: exec,
