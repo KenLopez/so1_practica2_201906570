@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import {Col, Container, Navbar, Row} from 'react-bootstrap'
 import axios from "axios";
 import Tree from './components/Tree';
+import Counts from './components/Counts';
+import Usage from './components/Usage';
 
 function App() {
   const [ejecucion, setEjecucion] = useState(0);
@@ -54,7 +56,7 @@ function App() {
   },[request])
 
   return (
-    <div className='App'>
+    <div className='App mb-5'>
       <Navbar bg='dark' variant='dark'>
         <Container fluid>
             <Navbar.Brand>
@@ -62,22 +64,18 @@ function App() {
             </Navbar.Brand>
         </Container>
       </Navbar>
-      <Container className='card mt-5'>
-        <Tree rows={procs}/>
-      </Container>
       <Container className='card mt-5 py-3 px-5'>
-        <h3 className='mb-0'>Datos de Procesos</h3>
-        <hr/>
         <Row>
           <Col>
-            <h5>Procesos en ejecución: {ejecucion}</h5>
-            <h5>Procesos detenidos: {detenidos}</h5>
-            <h5>Procesos suspendidos: {suspendidos}</h5>
-            <h5>Procesos zombie: {zombie}</h5>
-            <h5><strong>Procesos totales: {total}</strong></h5>
+            <Usage title="Uso de CPU" usage={cpu}/>
+          </Col>
+          <Col>
+            <Usage title="Uso de RAM" usage={ram}/>
           </Col>
         </Row>
       </Container>
+      <Tree rows={procs}/>
+      <Counts ejecucion={ejecucion} detenidos={detenidos} suspendidos={suspendidos} zombie={zombie} total={total}/>
     </div>
   );
 }
