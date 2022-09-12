@@ -140,7 +140,7 @@ func main() {
 			default:
 				state = "OTRO"
 			}
-			res, er2 := conn.Exec(query, pro.Nombre, pro.Usuario, state, float64(pro.Ram)/float64(d.Ram.Totalram), "NULL", logId)
+			res, er2 := conn.Exec(query, pro.Nombre, pro.Usuario, state, float64(pro.Ram)/float64(d.Ram.Totalram), nil, logId)
 			if er2 != nil {
 				fmt.Println(er2)
 			}
