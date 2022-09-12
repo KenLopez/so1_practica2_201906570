@@ -9,6 +9,23 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+type Log struct {
+	Id    int
+	Fecha string
+	Cpu   float64
+	Ram   float64
+}
+
+type Proceso struct {
+	Id      int
+	Nombre  string
+	Usuario int
+	Estado  string
+	RAM     float64
+	Padre   int
+	Log     int
+}
+
 type Ram struct {
 	Totalram int `json:"totalram"`
 	Freeram  int `json:"freeram"`
