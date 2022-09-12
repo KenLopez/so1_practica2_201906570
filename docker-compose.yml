@@ -7,3 +7,9 @@ services:
     build: ./api
     ports:
       - "3000:3000"
+  frontend:
+    container_name: frontend
+    restart: always
+    build: ./frontend
+    ports:
+      - "4200:4200"
