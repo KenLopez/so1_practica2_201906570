@@ -54,7 +54,7 @@ router.get('/process', async (req, res) => {
             }
             for (const proc of children) {
                 const parent = processes.find(item => item.id === proc.padre);
-                parent.children.push({...proc});
+                parent.children.push({...proc, parentId: proc.padre});
             }
             res.send({
                 ejecucion: exec,

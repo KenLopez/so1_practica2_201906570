@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {Col, Container, Navbar, Row} from 'react-bootstrap'
 import axios from "axios";
+import Tree from './components/Tree';
 
 function App() {
   const [ejecucion, setEjecucion] = useState(0);
@@ -41,8 +42,7 @@ function App() {
       const info = res[1].data;
       setCpu(info.cpu);
       setRam(info.ram)
-      
-      console.log(res);
+
       const timer = setTimeout(() => {
         setRequest(!request)
       }, 3000);
@@ -62,6 +62,9 @@ function App() {
             </Navbar.Brand>
         </Container>
       </Navbar>
+      <Container className='card mt-5'>
+        <Tree rows={procs}/>
+      </Container>
       <Container className='card mt-5 py-3 px-5'>
         <h3 className='mb-0'>Datos de Procesos</h3>
         <hr/>
