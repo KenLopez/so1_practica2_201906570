@@ -125,7 +125,7 @@ func main() {
 
 		for i := 0; i < len(parents); i++ {
 			pro := *parents[i].Value
-			query := `INSERT INTO PROCESO(nombre, usuario, estado, ram, padre, log) VALUES (?,?,?,?,NULL,?);`
+			query := `INSERT INTO PROCESO(nombre, usuario, estado, ram, log) VALUES (?,?,?,?,?);`
 			state := ""
 			switch pro.Estado {
 			case 0:
