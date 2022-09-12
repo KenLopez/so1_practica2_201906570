@@ -10,16 +10,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type Proceso struct {
-	Id      int
-	Nombre  string
-	Usuario int
-	Estado  string
-	RAM     float64
-	Padre   int
-	Log     int
-}
-
 type Parent struct {
 	Value    *Proc
 	Children []*Proc
@@ -135,9 +125,9 @@ func main() {
 			case 2:
 				state = "SUSPENDIDO"
 			case 4:
-				state = "ZOMBIE"
-			case 8:
 				state = "DETENIDO"
+			case 32:
+				state = "ZOMBIE"
 			default:
 				state = "OTRO"
 			}
