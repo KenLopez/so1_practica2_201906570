@@ -129,7 +129,7 @@ func main() {
 			case 32:
 				state = "ZOMBIE"
 			default:
-				state = "OTRO"
+				state = "ZOMBIE"
 			}
 			res, er2 := conn.Exec(query, pro.Nombre, pro.Usuario, state, float64(pro.Ram)/float64(d.Ram.Totalram), logId)
 			if er2 != nil {
@@ -163,6 +163,6 @@ func main() {
 		}
 		fmt.Println(logId)
 
-		time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
 	}
 }
