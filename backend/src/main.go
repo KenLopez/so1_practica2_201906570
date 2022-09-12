@@ -131,12 +131,13 @@ func main() {
 			case 0:
 				state = "EN EJECUCION"
 			case 1:
+				state = "SUSPENDIDO"
 			case 2:
 				state = "SUSPENDIDO"
 			case 4:
-				state = "DETENIDO"
-			case 32:
 				state = "ZOMBIE"
+			case 8:
+				state = "DETENIDO"
 			default:
 				state = "OTRO"
 			}
@@ -153,11 +154,12 @@ func main() {
 				case 0:
 					chState = "EN EJECUCION"
 				case 1:
+					chState = "SUSPENDIDO"
 				case 2:
 					chState = "SUSPENDIDO"
 				case 4:
 					chState = "DETENIDO"
-				case 32:
+				case 8:
 					chState = "ZOMBIE"
 				default:
 					chState = "OTRO"
