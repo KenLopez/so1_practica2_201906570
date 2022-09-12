@@ -146,6 +146,7 @@ func main() {
 			}
 			parentId, _ := res.LastInsertId()
 			for j := 0; j < len(parents[i].Children); j++ {
+				query2 := `INSERT INTO PROCESO(nombre, usuario, estado, ram, log) VALUES (?,?,?,?,?);`
 				ch := *parents[i].Children[j]
 				chState := ""
 				switch ch.Estado {
@@ -161,7 +162,7 @@ func main() {
 				default:
 					chState = "OTRO"
 				}
-				_, er3 := conn.Exec(query, ch.Nombre, ch.Usuario, chState, float64(ch.Ram)/float64(d.Ram.Totalram), parentId, logId)
+				_, er3 := conn.Exec(query2, ch.Nombre, ch.Usuario, chState, float64(ch.Ram)/float64(d.Ram.Totalram), parentId, logId)
 				if er3 != nil {
 					fmt.Println(er3)
 				}
